@@ -1,0 +1,61 @@
+<!-- saved from url=(0014)about:internet -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<title>GetImageDataCommand.as</title>
+<link rel="stylesheet" type="text/css" href="../../../../../../SourceStyles.css"/>
+</head>
+
+<body><pre><span class="ActionScriptpackage">package</span> <span class="ActionScriptDefault_Text">uk</span>.<span class="ActionScriptDefault_Text">co</span>.<span class="ActionScriptDefault_Text">ziazoo</span>.<span class="ActionScriptDefault_Text">snappyviewer</span>.<span class="ActionScriptDefault_Text">commands</span>
+<span class="ActionScriptBracket/Brace">{</span>
+    <span class="ActionScriptReserved">import</span> <span class="ActionScriptDefault_Text">com</span>.<span class="ActionScriptDefault_Text">adobe</span>.<span class="ActionScriptDefault_Text">cairngorm</span>.<span class="ActionScriptDefault_Text">commands</span>.<span class="ActionScriptDefault_Text">ICommand</span>;
+    <span class="ActionScriptReserved">import</span> <span class="ActionScriptDefault_Text">com</span>.<span class="ActionScriptDefault_Text">adobe</span>.<span class="ActionScriptDefault_Text">cairngorm</span>.<span class="ActionScriptDefault_Text">control</span>.<span class="ActionScriptDefault_Text">CairngormEvent</span>;
+    
+    <span class="ActionScriptReserved">import</span> <span class="ActionScriptDefault_Text">mx</span>.<span class="ActionScriptDefault_Text">rpc</span>.<span class="ActionScriptDefault_Text">IResponder</span>;
+    <span class="ActionScriptReserved">import</span> <span class="ActionScriptDefault_Text">mx</span>.<span class="ActionScriptDefault_Text">rpc</span>.<span class="ActionScriptDefault_Text">events</span>.<span class="ActionScriptDefault_Text">ResultEvent</span>;
+    
+    <span class="ActionScriptReserved">import</span> <span class="ActionScriptDefault_Text">uk</span>.<span class="ActionScriptDefault_Text">co</span>.<span class="ActionScriptDefault_Text">ziazoo</span>.<span class="ActionScriptDefault_Text">snappyviewer</span>.<span class="ActionScriptDefault_Text">business</span>.<span class="ActionScriptDefault_Text">SnappyDelegate</span>;
+    <span class="ActionScriptReserved">import</span> <span class="ActionScriptDefault_Text">uk</span>.<span class="ActionScriptDefault_Text">co</span>.<span class="ActionScriptDefault_Text">ziazoo</span>.<span class="ActionScriptDefault_Text">snappyviewer</span>.<span class="ActionScriptDefault_Text">model</span>.<span class="ActionScriptDefault_Text">SnappyModelLocator</span>;
+    <span class="ActionScriptReserved">import</span> <span class="ActionScriptDefault_Text">uk</span>.<span class="ActionScriptDefault_Text">co</span>.<span class="ActionScriptDefault_Text">ziazoo</span>.<span class="ActionScriptDefault_Text">snappyviewer</span>.<span class="ActionScriptDefault_Text">view</span>.<span class="ActionScriptDefault_Text">imageViewer</span>.<span class="ActionScriptDefault_Text">Item</span>;
+    <span class="ActionScriptReserved">import</span> <span class="ActionScriptDefault_Text">uk</span>.<span class="ActionScriptDefault_Text">co</span>.<span class="ActionScriptDefault_Text">ziazoo</span>.<span class="ActionScriptDefault_Text">snappyviewer</span>.<span class="ActionScriptDefault_Text">vo</span>.<span class="ActionScriptDefault_Text">ImageVO</span>;
+
+    <span class="ActionScriptReserved">public</span> <span class="ActionScriptclass">class</span> <span class="ActionScriptDefault_Text">GetImageDataCommand</span> <span class="ActionScriptReserved">implements</span> <span class="ActionScriptDefault_Text">ICommand</span> , <span class="ActionScriptDefault_Text">IResponder</span>
+    <span class="ActionScriptBracket/Brace">{</span>
+        
+        <span class="ActionScriptReserved">public</span> <span class="ActionScriptfunction">function</span> <span class="ActionScriptDefault_Text">execute</span><span class="ActionScriptBracket/Brace">(</span> <span class="ActionScriptDefault_Text">event</span> <span class="ActionScriptOperator">:</span> <span class="ActionScriptDefault_Text">CairngormEvent</span> <span class="ActionScriptBracket/Brace">)</span> <span class="ActionScriptOperator">:</span> <span class="ActionScriptReserved">void</span>
+        <span class="ActionScriptBracket/Brace">{</span>
+            <span class="ActionScriptvar">var</span> <span class="ActionScriptDefault_Text">delegate</span> <span class="ActionScriptOperator">:</span> <span class="ActionScriptDefault_Text">SnappyDelegate</span> <span class="ActionScriptOperator">=</span> <span class="ActionScriptReserved">new</span> <span class="ActionScriptDefault_Text">SnappyDelegate</span><span class="ActionScriptBracket/Brace">(</span> <span class="ActionScriptReserved">this</span> <span class="ActionScriptBracket/Brace">)</span>;
+            <span class="ActionScriptDefault_Text">delegate</span>.<span class="ActionScriptDefault_Text">getData</span><span class="ActionScriptBracket/Brace">()</span>;
+        <span class="ActionScriptBracket/Brace">}</span>
+        
+        <span class="ActionScriptReserved">public</span> <span class="ActionScriptfunction">function</span> <span class="ActionScriptDefault_Text">result</span><span class="ActionScriptBracket/Brace">(</span><span class="ActionScriptDefault_Text">data</span><span class="ActionScriptOperator">:</span><span class="ActionScriptDefault_Text">Object</span><span class="ActionScriptBracket/Brace">)</span> <span class="ActionScriptOperator">:</span> <span class="ActionScriptReserved">void</span>
+        <span class="ActionScriptBracket/Brace">{</span>
+            <span class="ActionScriptvar">var</span> <span class="ActionScriptDefault_Text">xml</span> <span class="ActionScriptOperator">:</span> <span class="ActionScriptDefault_Text">XML</span> <span class="ActionScriptOperator">=</span> <span class="ActionScriptDefault_Text">ResultEvent</span><span class="ActionScriptBracket/Brace">(</span> <span class="ActionScriptDefault_Text">data</span> <span class="ActionScriptBracket/Brace">)</span>.<span class="ActionScriptDefault_Text">result</span> <span class="ActionScriptReserved">as</span> <span class="ActionScriptDefault_Text">XML</span>;
+                        
+            <span class="ActionScriptComment">// loop through xml and create GridItems for the SnappyModelLocator
+</span>            <span class="ActionScriptReserved">for</span> <span class="ActionScriptReserved">each</span> <span class="ActionScriptBracket/Brace">(</span> <span class="ActionScriptvar">var</span> <span class="ActionScriptDefault_Text">img</span> <span class="ActionScriptOperator">:</span> <span class="ActionScriptDefault_Text">XML</span> <span class="ActionScriptReserved">in</span> <span class="ActionScriptDefault_Text">xml</span>.<span class="ActionScriptDefault_Text">img</span> <span class="ActionScriptBracket/Brace">)</span>
+            <span class="ActionScriptBracket/Brace">{</span>
+                <span class="ActionScriptComment">// construct the date parts
+</span>                <span class="ActionScriptvar">var</span> <span class="ActionScriptDefault_Text">year</span> <span class="ActionScriptOperator">:</span> <span class="ActionScriptDefault_Text">String</span> <span class="ActionScriptOperator">=</span> <span class="ActionScriptDefault_Text">img</span>.@<span class="ActionScriptDefault_Text">date</span>.<span class="ActionScriptDefault_Text">substr</span><span class="ActionScriptBracket/Brace">(</span> 6 , 4 <span class="ActionScriptBracket/Brace">)</span> 
+                <span class="ActionScriptvar">var</span> <span class="ActionScriptDefault_Text">month</span> <span class="ActionScriptOperator">:</span> <span class="ActionScriptDefault_Text">String</span> <span class="ActionScriptOperator">=</span> <span class="ActionScriptDefault_Text">String</span> <span class="ActionScriptBracket/Brace">(</span> <span class="ActionScriptDefault_Text">Number</span> <span class="ActionScriptBracket/Brace">(</span> <span class="ActionScriptDefault_Text">img</span>.@<span class="ActionScriptDefault_Text">date</span>.<span class="ActionScriptDefault_Text">substr</span><span class="ActionScriptBracket/Brace">(</span> 3 , 2 <span class="ActionScriptBracket/Brace">)</span> <span class="ActionScriptBracket/Brace">)</span> <span class="ActionScriptOperator">-</span> 1 <span class="ActionScriptBracket/Brace">)</span>;
+                <span class="ActionScriptvar">var</span> <span class="ActionScriptDefault_Text">date</span> <span class="ActionScriptOperator">:</span> <span class="ActionScriptDefault_Text">String</span> <span class="ActionScriptOperator">=</span>  <span class="ActionScriptDefault_Text">img</span>.@<span class="ActionScriptDefault_Text">date</span>.<span class="ActionScriptDefault_Text">substr</span><span class="ActionScriptBracket/Brace">(</span> 0 , 2 <span class="ActionScriptBracket/Brace">)</span>
+                
+                <span class="ActionScriptComment">// create an imageVO from the XML to pass to the GridItem
+</span>                <span class="ActionScriptvar">var</span> <span class="ActionScriptDefault_Text">imgVO</span> <span class="ActionScriptOperator">:</span> <span class="ActionScriptDefault_Text">ImageVO</span> <span class="ActionScriptOperator">=</span> <span class="ActionScriptReserved">new</span> <span class="ActionScriptDefault_Text">ImageVO</span><span class="ActionScriptBracket/Brace">(</span> <span class="ActionScriptDefault_Text">img</span> , <span class="ActionScriptReserved">new</span> <span class="ActionScriptDefault_Text">Date</span> <span class="ActionScriptBracket/Brace">(</span> <span class="ActionScriptDefault_Text">year</span> , <span class="ActionScriptDefault_Text">month</span> , <span class="ActionScriptDefault_Text">date</span> <span class="ActionScriptBracket/Brace">)</span> <span class="ActionScriptBracket/Brace">)</span>;
+                
+                <span class="ActionScriptComment">// create the GridItem and add it to the collection
+</span>                <span class="ActionScriptvar">var</span> <span class="ActionScriptDefault_Text">gridItem</span> <span class="ActionScriptOperator">:</span> <span class="ActionScriptDefault_Text">Item</span> <span class="ActionScriptOperator">=</span> <span class="ActionScriptReserved">new</span> <span class="ActionScriptDefault_Text">Item</span><span class="ActionScriptBracket/Brace">(</span> <span class="ActionScriptDefault_Text">imgVO</span> <span class="ActionScriptBracket/Brace">)</span>;                
+                                                
+                <span class="ActionScriptComment">// update the model
+</span>                <span class="ActionScriptDefault_Text">SnappyModelLocator</span>.<span class="ActionScriptDefault_Text">getInstance</span><span class="ActionScriptBracket/Brace">()</span>.<span class="ActionScriptDefault_Text">iItemCollection</span>.<span class="ActionScriptDefault_Text">addItem</span><span class="ActionScriptBracket/Brace">(</span> <span class="ActionScriptDefault_Text">gridItem</span> <span class="ActionScriptBracket/Brace">)</span>;
+            <span class="ActionScriptBracket/Brace">}</span>
+        <span class="ActionScriptBracket/Brace">}</span>
+    
+        <span class="ActionScriptReserved">public</span> <span class="ActionScriptfunction">function</span> <span class="ActionScriptDefault_Text">fault</span><span class="ActionScriptBracket/Brace">(</span><span class="ActionScriptDefault_Text">info</span><span class="ActionScriptOperator">:</span><span class="ActionScriptDefault_Text">Object</span><span class="ActionScriptBracket/Brace">)</span> <span class="ActionScriptOperator">:</span> <span class="ActionScriptReserved">void</span> 
+        <span class="ActionScriptBracket/Brace">{</span>
+            
+        <span class="ActionScriptBracket/Brace">}</span>
+    <span class="ActionScriptBracket/Brace">}</span>
+<span class="ActionScriptBracket/Brace">}</span></pre></body>
+</html>

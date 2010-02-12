@@ -1,0 +1,55 @@
+<!-- saved from url=(0014)about:internet -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<title>SpecialProperty.as</title>
+<link rel="stylesheet" type="text/css" href="../../../SourceStyles.css"/>
+</head>
+
+<body><pre><span class="ActionScriptpackage">package</span> <span class="ActionScriptDefault_Text">caurina</span>.<span class="ActionScriptDefault_Text">transitions</span> <span class="ActionScriptBracket/Brace">{</span>
+    
+    <span class="ActionScriptASDoc">/**
+     * SpecialProperty
+     * A kind of a getter/setter for special properties
+     *
+     * @author        Zeh Fernando
+     * @version        1.0.0
+     * @private
+     */</span>
+
+    <span class="ActionScriptReserved">public</span> <span class="ActionScriptclass">class</span> <span class="ActionScriptDefault_Text">SpecialProperty</span> <span class="ActionScriptBracket/Brace">{</span>
+    
+        <span class="ActionScriptReserved">public</span> <span class="ActionScriptvar">var</span> <span class="ActionScriptDefault_Text">getValue</span><span class="ActionScriptOperator">:</span><span class="ActionScriptDefault_Text">Function</span>;
+        <span class="ActionScriptReserved">public</span> <span class="ActionScriptvar">var</span> <span class="ActionScriptDefault_Text">setValue</span><span class="ActionScriptOperator">:</span><span class="ActionScriptDefault_Text">Function</span>;
+        <span class="ActionScriptReserved">public</span> <span class="ActionScriptvar">var</span> <span class="ActionScriptDefault_Text">parameters</span><span class="ActionScriptOperator">:</span><span class="ActionScriptDefault_Text">Array</span>;
+
+        <span class="ActionScriptASDoc">/**
+         * Builds a new special property object.
+         * 
+         * @param        p_getFunction        Function    Reference to the function used to get the special property value
+         * @param        p_setFunction        Function    Reference to the function used to set the special property value
+         */</span>
+        <span class="ActionScriptReserved">public</span> <span class="ActionScriptfunction">function</span> <span class="ActionScriptDefault_Text">SpecialProperty</span> <span class="ActionScriptBracket/Brace">(</span><span class="ActionScriptDefault_Text">p_getFunction</span><span class="ActionScriptOperator">:</span><span class="ActionScriptDefault_Text">Function</span>, <span class="ActionScriptDefault_Text">p_setFunction</span><span class="ActionScriptOperator">:</span><span class="ActionScriptDefault_Text">Function</span>, <span class="ActionScriptDefault_Text">p_parameters</span><span class="ActionScriptOperator">:</span><span class="ActionScriptDefault_Text">Array</span> <span class="ActionScriptOperator">=</span> <span class="ActionScriptReserved">null</span><span class="ActionScriptBracket/Brace">)</span> <span class="ActionScriptBracket/Brace">{</span>
+            <span class="ActionScriptDefault_Text">getValue</span> <span class="ActionScriptOperator">=</span> <span class="ActionScriptDefault_Text">p_getFunction</span>;
+            <span class="ActionScriptDefault_Text">setValue</span> <span class="ActionScriptOperator">=</span> <span class="ActionScriptDefault_Text">p_setFunction</span>;
+            <span class="ActionScriptDefault_Text">parameters</span> <span class="ActionScriptOperator">=</span> <span class="ActionScriptDefault_Text">p_parameters</span>;
+        <span class="ActionScriptBracket/Brace">}</span>
+    
+        <span class="ActionScriptASDoc">/**
+         * Converts the instance to a string that can be used when trace()ing the object
+         */</span>
+        <span class="ActionScriptReserved">public</span> <span class="ActionScriptfunction">function</span> <span class="ActionScriptDefault_Text">toString</span><span class="ActionScriptBracket/Brace">()</span><span class="ActionScriptOperator">:</span><span class="ActionScriptDefault_Text">String</span> <span class="ActionScriptBracket/Brace">{</span>
+            <span class="ActionScriptvar">var</span> <span class="ActionScriptDefault_Text">value</span><span class="ActionScriptOperator">:</span><span class="ActionScriptDefault_Text">String</span> <span class="ActionScriptOperator">=</span> <span class="ActionScriptString">&quot;&quot;</span>;
+            <span class="ActionScriptDefault_Text">value</span> <span class="ActionScriptOperator">+=</span> <span class="ActionScriptString">&quot;[SpecialProperty &quot;</span>;
+            <span class="ActionScriptDefault_Text">value</span> <span class="ActionScriptOperator">+=</span> <span class="ActionScriptString">&quot;getValue:&quot;</span><span class="ActionScriptOperator">+</span><span class="ActionScriptDefault_Text">String</span><span class="ActionScriptBracket/Brace">(</span><span class="ActionScriptDefault_Text">getValue</span><span class="ActionScriptBracket/Brace">)</span>; <span class="ActionScriptComment">// .toString();
+</span>            <span class="ActionScriptDefault_Text">value</span> <span class="ActionScriptOperator">+=</span> <span class="ActionScriptString">&quot;, &quot;</span>;
+            <span class="ActionScriptDefault_Text">value</span> <span class="ActionScriptOperator">+=</span> <span class="ActionScriptString">&quot;setValue:&quot;</span><span class="ActionScriptOperator">+</span><span class="ActionScriptDefault_Text">String</span><span class="ActionScriptBracket/Brace">(</span><span class="ActionScriptDefault_Text">setValue</span><span class="ActionScriptBracket/Brace">)</span>; <span class="ActionScriptComment">// .toString();
+</span>            <span class="ActionScriptDefault_Text">value</span> <span class="ActionScriptOperator">+=</span> <span class="ActionScriptString">&quot;, &quot;</span>;
+            <span class="ActionScriptDefault_Text">value</span> <span class="ActionScriptOperator">+=</span> <span class="ActionScriptString">&quot;parameters:&quot;</span><span class="ActionScriptOperator">+</span><span class="ActionScriptDefault_Text">String</span><span class="ActionScriptBracket/Brace">(</span><span class="ActionScriptDefault_Text">parameters</span><span class="ActionScriptBracket/Brace">)</span>; <span class="ActionScriptComment">// .toString();
+</span>            <span class="ActionScriptDefault_Text">value</span> <span class="ActionScriptOperator">+=</span> <span class="ActionScriptString">&quot;]&quot;</span>;
+            <span class="ActionScriptReserved">return</span> <span class="ActionScriptDefault_Text">value</span>;
+        <span class="ActionScriptBracket/Brace">}</span>
+    <span class="ActionScriptBracket/Brace">}</span>
+<span class="ActionScriptBracket/Brace">}</span></pre></body>
+</html>

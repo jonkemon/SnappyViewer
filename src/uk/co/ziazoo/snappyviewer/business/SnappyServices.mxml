@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<cairngorm:ServiceLocator xmlns:cairngorm="com.adobe.cairngorm.business.*" xmlns:mx="http://www.adobe.com/2006/mxml">
+	<mx:Script>
+		<![CDATA[
+			import uk.co.ziazoo.snappyviewer.settings.ApplicationSettings;
+		]]>
+	</mx:Script>
+	
+	<mx:HTTPService
+		id="imageData"
+		url="{ ApplicationSettings.XML_PATH }"
+		resultFormat="e4x"
+		useProxy="false"
+		showBusyCursor="false"/>
+	
+</cairngorm:ServiceLocator>

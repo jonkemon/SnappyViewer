@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" 
+			backgroundColor="#ffffff" 
+			layout="absolute"
+			viewSourceURL="srcview/index.html"
+			creationComplete="onComplete( event )"
+			xmlns:business="uk.co.ziazoo.snappyviewer.business.*" 
+			xmlns:model="uk.co.ziazoo.snappyviewer.model.*" 
+			xmlns:control="uk.co.ziazoo.snappyviewer.control.*" 
+			xmlns:imageViewer="uk.co.ziazoo.snappyviewer.view.imageViewer.*">
+			
+	<mx:Script>
+		<![CDATA[
+			
+			import com.adobe.cairngorm.control.CairngormEvent;
+			
+			import uk.co.ziazoo.snappyviewer.control.SnappyController;
+			import uk.co.ziazoo.snappyviewer.view.imageViewer.SlideItemDisplayer;
+			import uk.co.ziazoo.snappyviewer.view.imageViewer.GridItemDisplayer;
+			import uk.co.ziazoo.snappyviewer.view.IItemDisplayer;
+			
+			import mx.controls.ComboBox;
+			import mx.events.FlexEvent;
+			
+			private var _gridDisplayer : IItemDisplayer;
+			private var _slideDisplayer : IItemDisplayer;
+			private var _currentDisplayer : IItemDisplayer;
+						
+			private function onComplete ( event : Event ) : void
+			{
+				// load the XML data
+				new CairngormEvent ( SnappyController.APPLICATON_LOADED ).dispatch();
+				
+				// setup the view
+				createIItemDisplayers();
+			}
+			
+			
+			private function createIItemDisplayers() : void
+			{
+				_gridDisplayer = new GridItemDisplayer( 4 , 3 , 10 ); 
+				_slideDisplayer = new SlideItemDisplayer();
+				
+				currentDisplayer = _gridDisplayer;				
+			}
+			
+			private function onSelectedItemClick ( event : Event ) : void
+			{
+				if ( _currentDisplayer == _slideDisplayer )	currentDisplayer = _gridDisplayer;
+				else if ( _currentDisplayer == _gridDisplayer ) currentDisplayer = _slideDisplayer; 
+				
+			}
+			
+			private function onItemClick ( event : Event ) : void
+			{
+				if ( _currentDisplayer == _gridDisplayer ) currentDisplayer = _slideDisplayer;
+			}
+			
+			private function set currentDisplayer ( displayer : IItemDisplayer ) : void
+			{
+				_currentDisplayer = displayer;
+				iv.itemDisplayer = displayer;
+			}
+						
+			private function onSortChange ( event : Event ) : void
+			{
+				// sort the data
+				new CairngormEvent( ( event.target as ComboBox ).selectedItem.data ).dispatch();
+			}
+			
+			
+		]]>
+	</mx:Script>
+
+	<!-- instantiating cairngorm logic -->
+	<business:SnappyServices id="business"/>
+	<model:SnappyModelLocator id="model"/>
+	<control:SnappyController id="control"/>	
+	
+	<!-- UIComponent containing the IItemView -->	
+	<imageViewer:ItemView id="iv" 
+		dataProvider="{model.iItemCollection}" 
+		onSelectedItemClick="{onSelectedItemClick( event )}"
+		onItemClick="{onItemClick( event )}" 
+		height="100%" width="100%" top="60"/>
+	
+		
+	<!-- controls to change the sort order -->
+	 <mx:Box left="5" top="5" height="50" width="180">
+		<mx:ComboBox id="sortCombo" dataProvider="{model.sortTypes}" change="onSortChange( event )" />
+	</mx:Box>
+	
+</mx:Application>
